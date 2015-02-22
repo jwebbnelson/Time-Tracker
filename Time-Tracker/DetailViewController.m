@@ -24,18 +24,21 @@
 
 @end
 
+// View Controller for specific Project, keeps track of entries
 @implementation DetailViewController
 
 -(instancetype)init {
     self = [super init];
     if(self){
         self.detailDataSource = [DetailViewDataSource new];
+      
     }
     return self;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+  self.navigationController.navigationBar.tintColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"reef.png"]];
     [self.tableView reloadData];
 }
 
@@ -52,20 +55,17 @@
     self.tableView.dataSource = self.detailDataSource;
     self.dataSource.project = self.project;
     
-    
-    
 }
 
-
+// Action method for add method, presents
 - (IBAction)addAction:(id)sender {
 
     CustomEntryViewController *customViewController = [CustomEntryViewController new];
     customViewController.project = self.project;
     [self presentViewController:customViewController animated:YES completion:nil];
-    
 }
 
-
+#pragma mark - checkIn/Out methods
 - (IBAction)checkInAction:(id)sender {
     
     [self.project startNewEntry];
@@ -78,6 +78,7 @@
     [self.tableView reloadData];
 }
 
+#pragma mark - reportAction (email)
 - (IBAction)reportAction:(id)sender {
     
     MFMailComposeViewController *mailer = [MFMailComposeViewController new];
@@ -103,7 +104,7 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-
+#pragma mark - textField editing methods
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     
     [textField resignFirstResponder];
@@ -118,12 +119,9 @@
     return YES;
 }
 
-
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 
 @end
