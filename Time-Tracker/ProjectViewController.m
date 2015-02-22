@@ -44,8 +44,15 @@
     
     [super viewDidLoad];
     
-    self.title = @"Time Hero";
-    
+    // ProjectView Title label
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    titleLabel.backgroundColor = [UIColor clearColor];
+    titleLabel.font = [UIFont boldSystemFontOfSize:27.0];
+    titleLabel.textColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"reef.png"]];
+    self.navigationItem.titleView = titleLabel;
+    titleLabel.text = @"Time Hero";
+    [titleLabel sizeToFit];
+
     self.tableView.backgroundColor = [UIColor clearColor];
     self.tableView.opaque = NO;
     
@@ -56,7 +63,6 @@
     self.tableView.dataSource = self.dataSource;
     
     [self.dataSource registerTableView:self.tableView];
-    
     
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(newProject)];
     
@@ -72,7 +78,6 @@
     DetailViewController *detailViewController = [DetailViewController new];
     detailViewController.project = project;
     [self.navigationController pushViewController:detailViewController animated:YES];
-    
 }
 
 // When project is selected, pushes to DetailViewController
